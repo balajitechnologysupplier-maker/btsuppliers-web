@@ -1,160 +1,97 @@
-(function () {
-  'use strict';
+/* ============================================================
+   BULLETPROOF ICON SIZER
+   Forces every SVG on the page to the correct size based on
+   its context. Runs after DOM ready and whenever the cart
+   drawer / toasts / dynamic content is added.
+   ============================================================ */
+function btsFixIconSizes(root) {
+  root = root || document;
+  var sizes = [
+    ['.topbar__item svg', 11],
+    ['.nav__cart svg', 14],
+    ['.cart-badge svg', 10],
+    ['.btn--sm svg', 11],
+    ['.btn--lg svg', 14],
+    ['.btn svg', 12],
+    ['.hero__ticks svg', 13],
+    ['.float-card__icon svg', 12],
+    ['.cat-card__icon svg', 17],
+    ['.cat-list svg', 12],
+    ['.cat-card__link svg', 12],
+    ['.why-card__icon svg', 16],
+    ['.check-list svg', 14],
+    ['.branch__row > svg', 14],
+    ['.phone-chips svg', 10],
+    ['.contact-info__icon svg', 14],
+    ['.form-success__icon svg', 20],
+    ['.pay-option__icon svg', 16],
+    ['.confirm-hero__icon svg', 30],
+    ['.order-id svg', 12],
+    ['.drawer__close svg', 14],
+    ['.drawer__empty svg', 40],
+    ['.empty svg', 44],
+    ['.fab svg', 18],
+    ['.fab--top svg', 14],
+    ['.toast svg', 14],
+    ['.alert svg', 15],
+    ['.footer__contact svg', 12],
+    ['.footer__phones svg', 10],
+    ['.socials a svg', 12],
+    ['.breadcrumb svg', 12],
+    ['.pd-specs svg', 12],
+    ['.qty svg', 12],
+    ['.summary svg', 12],
+    ['.stock-pill svg', 10]
+  ];
 
-  /* ---------- Current year ---------- */
-  var y = document.getElementById('year');
-  if (y) y.textContent = new Date().getFullYear();
+  function apply(svg, size) {
+    svg.style.setProperty('width', size + 'px', 'important');
+    svg.style.setProperty('height', size + 'px', 'important');
+    svg.style.setProperty('min-width', size + 'px', 'important');
+    svg.style.setProperty('min-height', size + 'px', 'important');
+    svg.style.setProperty('max-width', size + 'px', 'important');
+    svg.style.setProperty('max-height', size + 'px', 'important');
+    svg.style.setProperty('flex', 'none', 'important');
+    svg.setAttribute('width', size);
+    svg.setAttribute('height', size);
+  }
 
-  /* ---------- Logo: hide monogram if logo.jpg loads ---------- */
-  document.querySelectorAll('.logo__img').forEach(function (img) {
-    var mark = img.parentElement.querySelector('.logo__mark');
-    function useLogo() { if (mark) mark.style.display = 'none'; }
-    function useMark() { img.style.display = 'none'; if (mark) mark.style.display = 'grid'; }
-    if (img.complete && img.naturalWidth > 0) useLogo();
-    img.addEventListener('load', useLogo);
-    img.addEventListener('error', useMark);
+  /* First: two large illustrations get full width */
+  root.querySelectorAll('.tech-panel > svg, .split__media > svg').forEach(function (svg) {
+    svg.style.setProperty('width', '100%', 'important');
+    svg.style.setProperty('height', 'auto', 'important');
+    svg.style.setProperty('min-width', '0', 'important');
+    svg.style.setProperty('min-height', '0', 'important');
+    svg.style.setProperty('max-width', '100%', 'important');
+    svg.style.setProperty('max-height', 'none', 'important');
+    svg.removeAttribute('width');
+    svg.removeAttribute('height');
   });
 
-  /* ---------- Mobile nav ---------- */
-  var navToggle = document.getElementById('navToggle');
-  var nav = document.getElementById('nav');
-  if (navToggle && nav) {
-    navToggle.addEventListener('click', function () {
-      var open = nav.classList.toggle('open');
-      navToggle.classList.toggle('open', open);
-      navToggle.setAttribute('aria-expanded', String(open));
+  /* Second: apply each context-specific size */
+  sizes.forEach(function (pair) {
+    root.querySelectorAll(pair[0]).forEach(function (svg) {
+      if (svg.closest('.tech-panel, .split__media')) return;
+      apply(svg, pair[1]);
     });
-    nav.querySelectorAll('a').forEach(function (link) {
-      link.addEventListener('click', function () {
-        nav.classList.remove('open');
-        navToggle.classList.remove('open');
-        navToggle.setAttribute('aria-expanded', 'false');
-      });
-    });
-  }
+  });
 
-  /* ---------- Sticky header + back-to-top ---------- */
-  var header = document.getElementById('header');
-  var backToTop = document.getElementById('backToTop');
-  function onScroll() {
-    var sy = window.scrollY;
-    if (header) header.classList.toggle('scrolled', sy > 12);
-    if (backToTop) backToTop.classList.toggle('show', sy > 600);
-  }
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
-  if (backToTop) {
-    backToTop.addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-  }
+  /* Third: any remaining SVG that hasn't been styled gets 14px */
+  root.querySelectorAll('svg').forEach(function (svg) {
+    if (svg.closest('.tech-panel, .split__media')) return;
+    if (svg.style.width) return;
+    apply(svg, 14);
+  });
+}
 
-  /* ---------- Reveal on scroll ---------- */
-  var revealEls = document.querySelectorAll('.reveal');
-  if ('IntersectionObserver' in window) {
-    var revealObserver = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry, i) {
-        if (entry.isIntersecting) {
-          entry.target.style.transitionDelay = (i * 70) + 'ms';
-          entry.target.classList.add('in');
-          revealObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
-    revealEls.forEach(function (el) { revealObserver.observe(el); });
-  } else {
-    revealEls.forEach(function (el) { el.classList.add('in'); });
-  }
+/* Run on page load */
+document.addEventListener('DOMContentLoaded', function () { btsFixIconSizes(); });
+window.addEventListener('load', function () { btsFixIconSizes(); });
 
-  /* ---------- Count-up stats ---------- */
-  var counters = document.querySelectorAll('[data-count]');
-  if (counters.length && 'IntersectionObserver' in window) {
-    var countObserver = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (!entry.isIntersecting) return;
-        var el = entry.target;
-        var target = parseInt(el.getAttribute('data-count'), 10);
-        var suffix = el.getAttribute('data-suffix') || '';
-        var duration = 1500, start = null;
-        function step(ts) {
-          if (!start) start = ts;
-          var p = Math.min((ts - start) / duration, 1);
-          var eased = 1 - Math.pow(1 - p, 3);
-          el.textContent = Math.round(target * eased).toLocaleString('en-US') + suffix;
-          if (p < 1) requestAnimationFrame(step);
-        }
-        requestAnimationFrame(step);
-        countObserver.unobserve(el);
-      });
-    }, { threshold: 0.5 });
-    counters.forEach(function (c) { countObserver.observe(c); });
-  }
-
-  /* ---------- Contact form (contact.html only) ---------- */
-  var form = document.getElementById('quoteForm');
-  if (form) {
-    var successBox = document.getElementById('formSuccess');
-    var waFollowUp = document.getElementById('waFollowUp');
-    var WA_NUMBER = '9779802858997';
-
-    function setError(field, hasError) {
-      var wrap = field.closest('.field');
-      if (wrap) wrap.classList.toggle('error', hasError);
-    }
-    function isContactValid(v) {
-      v = v.trim();
-      var email = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-      var phone = /^[+()\-\s\d]{7,18}$/;
-      return email.test(v) || phone.test(v);
-    }
-
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      var name = form.name, contactDetail = form.contactDetail,
-          subject = form.subject, message = form.message, errors = 0;
-
-      if (name.value.trim().length < 2) { setError(name, true); errors++; } else setError(name, false);
-      if (!isContactValid(contactDetail.value)) { setError(contactDetail, true); errors++; } else setError(contactDetail, false);
-      if (!subject.value) { setError(subject, true); errors++; } else setError(subject, false);
-      if (message.value.trim().length < 5) { setError(message, true); errors++; } else setError(message, false);
-
-      if (errors > 0) {
-        var firstError = form.querySelector('.field.error input, .field.error select, .field.error textarea');
-        if (firstError) firstError.focus();
-        return;
-      }
-
-      var text = 'New Website Enquiry%0A--------------------------%0A' +
-        'Name: ' + encodeURIComponent(name.value.trim()) + '%0A' +
-        'Contact: ' + encodeURIComponent(contactDetail.value.trim()) + '%0A' +
-        'Subject: ' + encodeURIComponent(subject.value) + '%0A' +
-        'Message: ' + encodeURIComponent(message.value.trim());
-
-      if (waFollowUp) waFollowUp.href = 'https://wa.me/' + WA_NUMBER + '?text=' + text;
-      form.style.display = 'none';
-      if (successBox) successBox.classList.add('show');
-      form.reset();
-    });
-
-    form.querySelectorAll('input, select, textarea').forEach(function (el) {
-      el.addEventListener('input', function () { setError(el, false); });
-      el.addEventListener('change', function () { setError(el, false); });
-    });
-  }
-
-  /* ---------- Product card → preselect subject ---------- */
-  var subjectSelect = document.getElementById('subject');
-  if (subjectSelect) {
-    document.querySelectorAll('[data-subject]').forEach(function (link) {
-      link.addEventListener('click', function () {
-        var wanted = link.getAttribute('data-subject').trim().toLowerCase();
-        Array.prototype.forEach.call(subjectSelect.options, function (opt) {
-          if (opt.text.trim().toLowerCase() === wanted) {
-            subjectSelect.value = opt.value || opt.text;
-          }
-        });
-      });
-    });
-  }
-
-})();
+/* Re-run when the cart drawer / toast / dynamic content changes */
+if ('MutationObserver' in window) {
+  var observer = new MutationObserver(function () { btsFixIconSizes(); });
+  document.addEventListener('DOMContentLoaded', function () {
+    observer.observe(document.body, { childList: true, subtree: true });
+  });
+}

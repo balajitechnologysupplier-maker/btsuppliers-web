@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="theme-color" content="#0A1F44" />
+<title>Shop | Balaji Technologies Suppliers Pvt. Ltd.</title>
+<meta name="description" content="Shop CCTV cameras, NVRs, fiber networking gear, OLTs, ONUs, PoE switches, batteries and power backups — delivered across Nepal." />
+<link rel="icon" href="logo.jpg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+/* ============================================================
+   BALAJI TECHNOLOGIES — shop.html + cart + checkout + order
+   All CSS inline. Works on file:/// too.
+   ============================================================ */
+:root{
+  --navy-900:#061229;--navy-800:#0A1F44;--navy-700:#123063;--navy-600:#1B417F;
+  --teal-500:#00C2D1;--teal-400:#25D6E6;--teal-300:#7FE9F2;
+  --ink:#0D1B2A;--body:#4A5A72;--muted:#7A8AA0;
+  --line:#E4E9F0;--soft:#F5F7FA;--white:#FFFFFF;
+  --ok:#12B76A;--warn:#E8A33D;--danger:#E5484D;
+  --radius:12px;--radius-lg:16px;
+  --shadow-sm:0 1px 2px rgba(10,31,68,.06),0 2px 8px rgba(10,31,68,.05);
+  --shadow:0 6px 20px rgba(10,31,68,.08);
+  --shadow-lg:0 16px 40px rgba(10,31,68,.13);
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --maxw:1100px;
+}
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;scroll-padding-top:90px;-webkit-text-size-adjust:100%;}
+body{margin:0;font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:14px;line-height:1.6;color:var(--body);background:var(--white);overflow-x:hidden;}
+img{max-width:100%;display:block;height:auto;}
+
+/* Icons — bounded on all four axes */
+svg{display:block;width:14px;height:14px;min-width:14px;min-height:14px;max-width:14px;max-height:14px;flex:none;overflow:visible;}
+.tech-panel > svg,.split__media > svg{width:100%;height:auto;min-width:0;min-height:0;max-width:100%;max-height:none;}
+
+a{color:inherit;text-decoration:none;}
+button{font:inherit;cursor:pointer;border:0;background:none;}
+ul{margin:0;padding:0;list-style:none;}
+h1,h2,h3,h4{color:var(--ink);font-weight:800;line-height:1.2;margin:0 0 .5em;letter-spacing:-.02em;}
+h1{font-size:clamp(1.4rem,2.6vw,2rem);}
+h2{font-size:clamp(1.15rem,1.9vw,1.5rem);}
+h3{font-size:.98rem;}
+h4{font-size:.9rem;}
+p{margin:0 0 .8rem;}
+:focus-visible{outline:2px solid var(--teal-500);outline-offset:2px;border-radius:4px;}
+
+.container{width:100%;max-width:var(--maxw);margin-inline:auto;padding-inline:18px;}
+.section{padding:36px 0;}
+.section--soft{background:var(--soft);}
+.section--tight{padding:26px 0;}
+@media (min-width:900px){.section{padding:52px 0;}.section--tight{padding:34px 0;}}
+
+.eyebrow{display:inline-flex;align-items:center;gap:6px;font-size:.66rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--teal-500);margin-bottom:8px;}
+.eyebrow::before{content:"";width:18px;height:2px;background:var(--teal-500);border-radius:2px;}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:9px 16px;border-radius:100px;font-size:.8rem;font-weight:700;white-space:nowrap;transition:transform .22s var(--ease),box-shadow .22s var(--ease),background .22s var(--ease),color .22s var(--ease),border-color .22s var(--ease);}
+.btn svg{width:12px;height:12px;min-width:12px;min-height:12px;max-width:12px;max-height:12px;}
+.btn--primary{background:linear-gradient(135deg,var(--teal-500),#009BB0);color:#04222A;box-shadow:0 6px 16px rgba(0,194,209,.3);}
+.btn--primary:hover{transform:translateY(-1px);box-shadow:0 10px 22px rgba(0,194,209,.4);}
+.btn--ghost{background:transparent;color:var(--navy-800);border:1.4px solid var(--line);}
+.btn--ghost:hover{border-color:var(--navy-800);transform:translateY(-1px);}
+.btn--outline-light{background:transparent;color:#fff;border:1.4px solid rgba(255,255,255,.3);}
+.btn--outline-light:hover{background:rgba(255,255,255,.1);}
+.btn--sm{padding:7px 13px;font-size:.75rem;}
+.btn--sm svg{width:11px;height:11px;min-width:11px;min-height:11px;max-width:11px;max-height:11px;}
+.btn--lg{padding:12px 22px;font-size:.88rem;}
+.btn--block{width:100%;}
+.btn[disabled]{opacity:.5;pointer-events:none;}
+
+.reveal{opacity:1;transform:none;}
+html.js-anim .reveal{opacity:0;transform:translateY(16px);transition:opacity .55s var(--ease),transform .55s var(--ease);}
+html.js-anim .reveal.in{opacity:1;transform:none;}
+
+/* Topbar */
+.topbar{background:var(--navy-900);color:#A9BBD5;font-size:.72rem;border-bottom:1px solid rgba(255,255,255,.06);}
+.topbar__inner{display:flex;align-items:center;justify-content:space-between;gap:14px;min-height:34px;flex-wrap:wrap;}
+.topbar__group{display:flex;align-items:center;gap:18px;flex-wrap:wrap;}
+.topbar__item{display:inline-flex;align-items:center;gap:5px;transition:color .2s;}
+.topbar__item:hover{color:var(--teal-400);}
+.topbar__item svg{width:11px;height:11px;min-width:11px;min-height:11px;max-width:11px;max-height:11px;stroke:var(--teal-400);}
+.topbar__wa{color:var(--teal-400);font-weight:600;}
+@media (max-width:980px){.topbar__inner{justify-content:center;padding-block:6px;}.topbar__group:first-child .topbar__item:not(:first-child){display:none;}}
+
+/* Header */
+.header{position:sticky;top:0;z-index:900;background:rgba(255,255,255,.93);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line);transition:box-shadow .3s var(--ease);}
+.header.scrolled{box-shadow:0 4px 18px rgba(10,31,68,.08);}
+.header__inner{display:flex;align-items:center;justify-content:space-between;gap:14px;min-height:66px;}
+.logo{display:flex;align-items:center;gap:9px;flex:none;}
+.logo__img{height:46px;width:auto;max-width:220px;object-fit:contain;display:block;}
+
+.nav{display:flex;align-items:center;gap:2px;}
+.nav a{position:relative;padding:7px 10px;border-radius:7px;font-size:.82rem;font-weight:600;color:var(--navy-800);transition:color .2s;}
+.nav a:hover{color:var(--teal-500);}
+.nav a.active{color:var(--teal-500);}
+.nav__cart{position:relative;display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:100px;background:var(--navy-800);color:#fff !important;font-size:.8rem;}
+.nav__cart:hover{background:var(--teal-500);color:#04222A !important;}
+.nav__cart svg{width:14px;height:14px;min-width:14px;min-height:14px;max-width:14px;max-height:14px;}
+.cart-badge{position:absolute;top:-6px;right:-6px;min-width:20px;height:20px;padding:0 5px;border-radius:100px;background:var(--teal-500);color:#04222A;font-size:.66rem;font-weight:800;display:grid;place-items:center;}
+.cart-badge[hidden]{display:none;}
+
+.nav-toggle{display:none;width:38px;height:38px;border-radius:10px;border:1px solid var(--line);background:#fff;flex-direction:column;align-items:center;justify-content:center;gap:4px;}
+.nav-toggle span{display:block;width:16px;height:2px;background:var(--navy-800);border-radius:2px;transition:transform .3s var(--ease),opacity .2s;}
+.nav-toggle.open span:nth-child(1){transform:translateY(6px) rotate(45deg);}
+.nav-toggle.open span:nth-child(2){opacity:0;}
+.nav-toggle.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg);}
+@media (max-width:1040px){
+  .nav-toggle{display:flex;}
+  .nav{position:absolute;left:0;right:0;top:100%;flex-direction:column;align-items:stretch;gap:2px;background:#fff;border-bottom:1px solid var(--line);padding:10px 18px 16px;box-shadow:0 14px 30px rgba(10,31,68,.1);transform:translateY(-10px);opacity:0;visibility:hidden;transition:opacity .26s var(--ease),transform .26s var(--ease),visibility .26s;}
+  .nav.open{transform:none;opacity:1;visibility:visible;}
+  .nav a{padding:10px;font-size:.9rem;border-radius:8px;}
+  .nav__cart{margin:8px 0 0;justify-content:center;}
+}
+
+/* Page hero */
+.page-hero{position:relative;overflow:hidden;color:#C7D3E4;background:radial-gradient(600px 320px at 84% -14%,rgba(0,194,209,.2),transparent 64%),linear-gradient(140deg,var(--navy-800) 0%,#071731 62%,#04101F 100%);padding:28px 0 34px;}
+.page-hero .container{position:relative;z-index:1;}
+.page-hero h1{color:#fff;margin-bottom:8px;}
+.page-hero p{color:#A9B8CE;font-size:.88rem;max-width:640px;margin:0;}
+.breadcrumb{display:flex;align-items:center;gap:7px;font-size:.72rem;font-weight:600;color:#8FA3BE;margin-bottom:12px;flex-wrap:wrap;}
+.breadcrumb a:hover{color:var(--teal-400);}
+.breadcrumb .sep{color:#4A6285;}
+.breadcrumb .current{color:var(--teal-400);}
+
+/* Shop toolbar */
+.shop-toolbar{display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:10px;align-items:end;background:#fff;border:1px solid var(--line);border-radius:var(--radius-lg);padding:14px;box-shadow:var(--shadow-sm);margin-bottom:22px;}
+@media (max-width:820px){.shop-toolbar{grid-template-columns:1fr 1fr;}}
+@media (max-width:520px){.shop-toolbar{grid-template-columns:1fr;}}
+.field{display:flex;flex-direction:column;gap:5px;}
+.field label{font-size:.68rem;font-weight:800;color:var(--navy-800);letter-spacing:.05em;text-transform:uppercase;}
+.field input,.field select,.field textarea{width:100%;padding:9px 12px;border:1.4px solid var(--line);border-radius:9px;background:#FBFCFE;font:inherit;font-size:.84rem;color:var(--navy-800);transition:border-color .2s var(--ease),box-shadow .2s var(--ease);}
+.field textarea{resize:vertical;min-height:80px;}
+.field select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%237A8AA0' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:34px;}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--teal-500);background:#fff;box-shadow:0 0 0 3px rgba(0,194,209,.14);}
+.field.error input,.field.error select,.field.error textarea{border-color:var(--danger);background:#FFF8F8;}
+.field__err{font-size:.68rem;color:var(--danger);font-weight:700;display:none;}
+.field.error .field__err{display:block;}
+
+/* Product grid */
+.product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px;}
+.p-card{position:relative;display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:var(--radius-lg);overflow:hidden;transition:transform .3s var(--ease),box-shadow .3s var(--ease),border-color .3s var(--ease);}
+.p-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:rgba(0,194,209,.4);}
+.p-card__media{position:relative;aspect-ratio:5/4;background:var(--soft);overflow:hidden;}
+.p-card__media img{width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease);}
+.p-card:hover .p-card__media img{transform:scale(1.05);}
+.p-card__badges{position:absolute;top:10px;left:10px;z-index:2;display:flex;flex-direction:column;gap:5px;}
+.badge{display:inline-block;font-size:.6rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:100px;background:rgba(10,31,68,.9);color:#fff;}
+.badge--teal{background:rgba(0,194,209,.94);color:#04222A;}
+.badge--danger{background:rgba(229,72,77,.94);color:#fff;}
+.p-card__body{padding:14px 15px 16px;display:flex;flex-direction:column;flex:1;}
+.p-card__brand{font-size:.64rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:4px;}
+.p-card__name{font-size:.9rem;font-weight:800;color:var(--navy-800);line-height:1.3;margin:0 0 6px;display:-webkit-box;-webkit-box-orient:vertical;box-orient:vertical;-webkit-line-clamp:2;line-clamp:2;overflow:hidden;}
+.p-card__name a:hover{color:var(--teal-500);}
+.p-card__short{font-size:.74rem;color:var(--muted);margin:0 0 10px;line-height:1.5;display:-webkit-box;-webkit-box-orient:vertical;box-orient:vertical;-webkit-line-clamp:2;line-clamp:2;overflow:hidden;}
+.p-card__price{margin-top:auto;display:flex;align-items:baseline;gap:6px;margin-bottom:12px;}
+.p-card__price strong{font-size:1.05rem;font-weight:800;color:var(--navy-800);letter-spacing:-.02em;}
+.p-card__price span{font-size:.68rem;color:var(--muted);font-weight:600;}
+.p-card__actions{display:flex;gap:6px;}
+.p-card__actions .btn{flex:1 1 auto;}
+.stock-pill{display:inline-flex;align-items:center;gap:5px;font-size:.68rem;font-weight:700;color:var(--ok);margin-bottom:8px;}
+.stock-pill .dot{width:6px;height:6px;border-radius:50%;background:var(--ok);flex:none;}
+.stock-pill--low{color:var(--warn);}
+.stock-pill--low .dot{background:var(--warn);}
+.stock-pill--out{color:var(--danger);}
+.stock-pill--out .dot{background:var(--danger);}
+
+/* Cart drawer */
+.drawer-overlay{position:fixed;inset:0;background:rgba(6,18,41,.55);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);z-index:990;opacity:0;visibility:hidden;transition:opacity .3s var(--ease),visibility .3s;}
+.drawer-overlay.open{opacity:1;visibility:visible;}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:100%;max-width:420px;background:#fff;z-index:995;display:flex;flex-direction:column;box-shadow:-16px 0 40px rgba(10,31,68,.2);transform:translateX(100%);transition:transform .35s var(--ease);}
+.drawer.open{transform:none;}
+.drawer__head{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid var(--line);}
+.drawer__head h3{margin:0;font-size:.98rem;}
+.drawer__close{width:32px;height:32px;border-radius:9px;display:grid;place-items:center;background:var(--soft);color:var(--navy-800);}
+.drawer__close:hover{background:var(--line);}
+.drawer__close svg{width:14px;height:14px;min-width:14px;min-height:14px;max-width:14px;max-height:14px;}
+.drawer__body{flex:1;overflow-y:auto;padding:16px 20px;}
+.drawer__foot{padding:16px 20px;border-top:1px solid var(--line);background:var(--soft);}
+.drawer__empty{text-align:center;padding:40px 0;color:var(--muted);}
+.drawer__empty svg{width:40px;height:40px;min-width:40px;min-height:40px;max-width:40px;max-height:40px;margin:0 auto 10px;color:var(--line);}
+.drawer-item{display:grid;grid-template-columns:60px 1fr auto;gap:10px;align-items:center;padding:10px 0;border-bottom:1px dashed var(--line);}
+.drawer-item:last-child{border-bottom:0;}
+.drawer-item__img{width:60px;height:60px;border-radius:8px;overflow:hidden;background:var(--soft);}
+.drawer-item__img img{width:100%;height:100%;object-fit:cover;}
+.drawer-item__name{font-size:.8rem;font-weight:800;color:var(--navy-800);line-height:1.3;display:-webkit-box;-webkit-box-orient:vertical;box-orient:vertical;-webkit-line-clamp:2;line-clamp:2;overflow:hidden;}
+.drawer-item__qty{font-size:.72rem;color:var(--muted);font-weight:600;margin-top:2px;}
+.drawer-item__price{font-size:.82rem;font-weight:800;color:var(--navy-800);text-align:right;}
+
+/* Toast */
+.toast-stack{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:1000;display:flex;flex-direction:column;gap:8px;align-items:center;pointer-events:none;}
+.toast{background:var(--navy-800);color:#fff;padding:11px 18px;border-radius:100px;font-size:.8rem;font-weight:700;box-shadow:0 12px 30px rgba(10,31,68,.25);display:inline-flex;align-items:center;gap:9px;animation:toastIn .35s var(--ease),toastOut .35s var(--ease) 2.6s forwards;}
+.toast svg{width:14px;height:14px;min-width:14px;min-height:14px;max-width:14px;max-height:14px;color:var(--teal-400);}
+@keyframes toastIn{from{opacity:0;transform:translateY(16px) scale(.94);}to{opacity:1;transform:none;}}
+@keyframes toastOut{to{opacity:0;transform:translateY(8px) scale(.96);}}
+
+/* Footer */
+.footer{background:var(--navy-900);color:#93A6C1;padding-top:36px;font-size:.8rem;}
+.footer__bottom{border-top:1px solid rgba(255,255,255,.08);padding:14px 0;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;font-size:.72rem;color:#7E93AF;}
+.footer a:hover{color:var(--teal-400);}
+
+/* FAB */
+.fab-stack{position:fixed;right:16px;bottom:16px;z-index:950;display:flex;flex-direction:column;gap:9px;align-items:flex-end;}
+.fab{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;box-shadow:0 8px 22px rgba(0,0,0,.22);position:relative;transition:transform .25s var(--ease);}
+.fab:hover{transform:scale(1.08);}
+.fab svg{width:18px;height:18px;min-width:18px;min-height:18px;max-width:18px;max-height:18px;}
+.fab--wa{background:#25D366;color:#fff;}
+.fab--wa::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid #25D366;animation:ripple 2.4s infinite;}
+@keyframes ripple{0%{transform:scale(1);opacity:.75;}100%{transform:scale(1.65);opacity:0;}}
+.fab--top{width:34px;height:34px;background:#fff;color:var(--navy-800);border:1px solid var(--line);opacity:0;visibility:hidden;transform:translateY(8px);}
+.fab--top.show{opacity:1;visibility:visible;transform:none;}
+.fab--top svg{width:14px;height:14px;min-width:14px;min-height:14px;max-width:14px;max-height:14px;}
+
+@media (max-width:600px){
+  .fab-stack{right:12px;bottom:12px;}
+  .fab{width:42px;height:42px;}
+  .fab svg{width:17px;height:17px;min-width:17px;min-height:17px;max-width:17px;max-height:17px;}
+  .fab--top{width:32px;height:32px;}
+  .fab--top svg{width:13px;height:13px;min-width:13px;min-height:13px;max-width:13px;max-height:13px;}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .reveal{opacity:1 !important;transform:none !important;transition:none !important;}
+  html{scroll-behavior:auto;}
+  *,*::before,*::after{animation:none !important;transition:none !important;}
+}
+</style>
+</head>
+<body data-page="shop">
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="container topbar__inner">
+    <div class="topbar__group">
+      <a class="topbar__item" href="tel:+9779802858997">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>
+        +977 980-2858997
+      </a>
+      <a class="topbar__item" href="mailto:info@balajitechnologies.com.np">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+        info@balajitechnologies.com.np
+      </a>
+    </div>
+    <div class="topbar__group">
+      <span class="topbar__item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+        Pokhara &amp; Butwal, Nepal
+      </span>
+      <a class="topbar__item topbar__wa" href="https://wa.me/9779802858997" target="_blank" rel="noopener">WhatsApp Quick Chat</a>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="header" id="header">
+  <div class="container header__inner">
+    <a href="index.html" class="logo" aria-label="Balaji Technologies Suppliers — Home">
+      <img src="logo.jpg" alt="Balaji Technologies Suppliers Pvt. Ltd." class="logo__img" />
+    </a>
+    <nav class="nav" id="nav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="about.html">About Us</a>
+      <a href="shop.html" class="active">Shop</a>
+      <a href="branches.html">Outlets</a>
+      <a href="contact.html">Contact</a>
+      <a href="#" class="nav__cart" data-open-cart>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1.5"/><circle cx="20" cy="21" r="1.5"/><path d="M1 1h4l2.6 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg>
+        Cart
+        <span class="cart-badge" hidden>0</span>
+      </a>
+    </nav>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main>
+
+<section class="page-hero">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html">Home</a><span class="sep">/</span><span class="current">Shop</span>
+    </nav>
+    <h1>Shop All Products</h1>
+    <p>Browse our full catalog of surveillance, networking, fiber and power hardware. Prices exclude VAT — 13% VAT is added at checkout. Delivery charges are billed at actual courier rate.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="shop-toolbar">
+      <div class="field">
+        <label for="filterSearch">Search</label>
+        <input type="search" id="filterSearch" placeholder="Search products…" />
+      </div>
+      <div class="field">
+        <label for="filterCategory">Category</label>
+        <select id="filterCategory">
+          <option value="all">All categories</option>
+          <option value="surveillance">Surveillance &amp; Security</option>
+          <option value="networking">Networking &amp; Fiber</option>
+          <option value="power">Power &amp; Accessories</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="filterSort">Sort</label>
+        <select id="filterSort">
+          <option value="relevance">Relevance</option>
+          <option value="price-asc">Price: Low to High</option>
+          <option value="price-desc">Price: High to Low</option>
+          <option value="name">Name (A–Z)</option>
+        </select>
+      </div>
+      <div class="field" style="align-self:end;">
+        <label>&nbsp;</label>
+        <span id="resultCount" style="font-size:.78rem;color:var(--muted);font-weight:700;padding:9px 4px;">Loading…</span>
+      </div>
+    </div>
+
+    <div id="shopGrid" class="product-grid"></div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__bottom">
+      <span>© <span id="year">2025</span> Balaji Technologies Suppliers Pvt. Ltd. All rights reserved.</span>
+      <span>Pokhara &middot; Butwal &middot; Nepal</span>
+    </div>
+  </div>
+</footer>
+
+<div class="fab-stack">
+  <button class="fab fab--top" id="backToTop" aria-label="Back to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
+  </button>
+  <a class="fab fab--wa" href="https://wa.me/9779802858997" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.96L2 22l5.25-1.38a9.87 9.87 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2Z"/></svg>
+  </a>
+</div>
+
+<script src="shop.js"></script>
+</body>
+</html>
